@@ -1,0 +1,71 @@
+﻿@model demoChecked.Models.StudentViewModel
+@{
+    ViewBag.Title = "Student";
+}
+
+<h2>Student</h2>
+@using (Html.BeginForm("Student", "Student", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.IsActive, "Is Active ?")<br />
+                        @Html.CheckBoxFor(model => model.IsActive, new { @class = "check-box agree-check-box" })
+                        <span class="check"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6 col-xs-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Departments)
+                        @Html.EnumDropDownListFor(model => model.Departments, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="form-control">
+            @{
+
+                var message = TempData["Message"] as string;
+                if (string.IsNullOrEmpty(message) == false)
+                {
+                    @message;
+                }
+
+            }
+        </div>*@
+    <div class="row well well-white" id="life-assured-first">
+        <div class="form-group">
+            
+        </div>
+    </div>
+    <br />
+    @Html.EditorFor(m=>m.StudentDetails)
+    <button type="submit" class="btn btn-danger">Submit</button>
+}
+<script type="text/javascript">
+    $(function () {
+        $(".check").on("click", function (event) {
+            var checkbox = $(this).siblings(".check-box").first();
+
+            if (!$(checkbox).prop("disabled")) {
+                toggleCheckbox(checkbox);
+            }
+
+        })
+
+        function toggleCheckbox(current) {
+            if ($(current).prop("checked")) {
+                $(current).removeAttr("checked");
+            }
+            else {
+                $(current).prop("check", true);
+            }
+        }
+    })
+</script>

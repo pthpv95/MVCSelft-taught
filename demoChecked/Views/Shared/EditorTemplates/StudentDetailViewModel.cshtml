@@ -1,0 +1,58 @@
+﻿@model demoChecked.Models.StudentDetailViewModel
+
+@{
+    var modelHashCode = Model.GetHashCode();
+    var radioGroupName = "radio-" + modelHashCode;
+    var sexHiddenId = radioGroupName + "-hidden";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.LabelFor(m => m.FullName)
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control " })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            @foreach (var item in Model.Sexes)
+            {
+                if (item.Value == Model.Sex)
+                {
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Sex, item.Value, new { @class = "check-radio", onclick = "showResult(this)", @checked = true })
+                        <div class="check"></div>
+                        @item.Text
+                    </label>
+                }
+                else
+                {
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Sex, item.Value, new { @class = "check-radio", onclick = "showResult(this)" })
+                        <div class="check"></div>
+                        @item.Text
+                    </label>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Course)
+            @Html.DropDownListFor(m => m.Course, Model.Courses, new { @class = "form-control " });
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nationalities)
+            @Html.EnumDropDownListFor(m => m.Nationalities, new { @class = "form-control " });
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showResult(radio) {
+        $("#" + radio.name + "-hidden").val(radio.value);
+    }
+</script>
